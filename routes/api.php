@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\UserController;
+
 
 Route::post('/login', function (Request $request) {
 
@@ -33,8 +35,7 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('/user', [UserController::class, 'index']);
+    Route::post('/user', [UserController::class, 'store']);
     
 });
