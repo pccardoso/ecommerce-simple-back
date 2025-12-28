@@ -1,0 +1,209 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API E-commerce Simple",
+        "description": "Documentação da API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api",
+            "description": "Servidor de Homologação"
+        }
+    ],
+    "paths": {
+        "/product-category": {
+            "get": {
+                "tags": [
+                    "Categorias de Produtos"
+                ],
+                "summary": "Listar todas as categorias de Produto",
+                "description": "Retorna todas as categorias de produtos cadastradas no sistema",
+                "operationId": "6cf039054ae757c1a7c138eee43840b1",
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Categoria A"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Descrição da categoria A"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Categorias de Produtos"
+                ],
+                "summary": "Criar uma nova categoria de produto",
+                "description": "Cria uma nova categoria de produto com título e descrição",
+                "operationId": "a78d25f3b0f861d003a0fab9ea090a95",
+                "requestBody": {
+                    "description": "Dados da categoria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "example": "Rastreamento"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "example": "Categoria relacionada a serviços de rastreamento"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria criada com sucesso!"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Rastreamento"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Categoria relacionada a serviços de rastreamento"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "500": {
+                        "description": "Erro interno ao criar categoria"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/product-category/{id}": {
+            "delete": {
+                "tags": [
+                    "Categorias de Produtos"
+                ],
+                "summary": "Remover uma categoria de produto",
+                "description": "Remove uma categoria de produto pelo ID",
+                "operationId": "55458d993157b75068685c048f219a6f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria removida com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria removida com sucesso!"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categorias de Produtos",
+            "description": "Categorias de Produtos"
+        }
+    ]
+}
