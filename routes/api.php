@@ -6,6 +6,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductCategoryController;
 
 
 Route::post('/login', function (Request $request) {
@@ -37,5 +38,12 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/user', [UserController::class, 'store']);
+
+    Route::group(['prefix' => 'product-category'], function(){
+
+        Route::post('/', [ProductCategoryController::class, 'store']);
+        Route::get('/', [ProductCategoryController::class, 'index']);
+
+    });
     
 });
